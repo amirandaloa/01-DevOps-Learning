@@ -10,7 +10,7 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
+- script: echo 01 Job Azure Learning
   displayName: 'Run a one-line script'
 
 - script: |
