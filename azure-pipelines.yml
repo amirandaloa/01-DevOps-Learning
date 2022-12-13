@@ -8,110 +8,42 @@ pool:
 
 stages:
 - stage: Build
-
   jobs:
   - job: BuildJob1
     steps:
-    - script: echo BuildJob1
-      displayName: 'Run a one-line script'
-
-    - script: |
-        echo Add other tasks to build, test, and deploy your project.
-        echo See https://aka.ms/yaml
-        echo more information
-      displayName: 'Run a multi-line script'
-
-  - job: BuildJob2
-    dependsOn: BuildJob1
-    steps:
-    - script: echo BuildJob2
-      displayName: 'Run a one-line script'
-
-  - job: BuildJob3
-    dependsOn: BuildJob2
-    steps:
-    - script: echo BuildJob3
-      displayName: 'Run a one-line script'
+    - bash: echo Build Job 1
+    - bash: echo $(pipeline_variable_01) Build Job 1
 
 - stage: DevDeploy
+  variables:
+    environment: Dev
   dependsOn: Build
-  
   jobs:
   - job: DevJob1
     steps:
-    - script: echo DevJob1
-      displayName: 'Run a one-line script'
-
-    - script: |
-        echo Add other tasks to build, test, and deploy your project.
-        echo See https://aka.ms/yaml
-        echo more information
-      displayName: 'Run a multi-line script'
-
-  - job: DevJob2
-    dependsOn: DevJob1
-    steps:
-    - script: echo DevJob2
-      displayName: 'Run a one-line script'
-
-  - job: DevJob3
-    dependsOn: DevJob2
-    steps:
-    - script: echo DevJob3
-      displayName: 'Run a one-line script'
-
+    - bash: echo Dev Job 1
+    - bash: echo $(environment) Deploy Job 1
+  
 - stage: QADeploy
+  variables:
+    environment: QA
   dependsOn: 
   - Build
   - DevDeploy
   jobs:
   - job: QAJob1
     steps:
-    - script: echo QAJob1
-      displayName: 'Run a one-line script'
-
-    - script: |
-        echo Add other tasks to build, test, and deploy your project.
-        echo See https://aka.ms/yaml
-        echo more information
-      displayName: 'Run a multi-line script'
-
-  - job: QAJob2
-    dependsOn: QAJob1
-    steps:
-    - script: echo QAJob2
-      displayName: 'Run a one-line script'
-
-  - job: QAJob3
-    dependsOn: QAJob2
-    steps:
-    - script: echo QAJob3
-      displayName: 'Run a one-line script'
+    - bash: echo QA Job 1
+    - bash: echo $(environment) Deploy Job 1
 
 - stage: ProdDeploy
+  variables:
+    environment: Prod
   dependsOn:
   - DevDeploy 
   - QADeploy
   jobs:
   - job: ProdJob1
     steps:
-    - script: echo ProdJob1
-      displayName: 'Run a one-line script'
-
-    - script: |
-        echo Add other tasks to build, test, and deploy your project.
-        echo See https://aka.ms/yaml
-        echo more information
-      displayName: 'Run a multi-line script'
-
-  - job: ProdJob2
-    dependsOn: ProdJob1
-    steps:
-    - script: echo ProdJob2
-      displayName: 'Run a one-line script'
-
-  - job: ProdJob3
-    dependsOn: ProdJob2
-    steps:
-    - script: echo ProdJob3
-      displayName: 'Run a one-line script'
+    - bash: Prod Job 1
+    - bash: echo $(environment) Deploy Job 1
