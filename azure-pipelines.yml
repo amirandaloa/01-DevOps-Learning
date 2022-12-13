@@ -1,8 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 
@@ -15,9 +10,9 @@ stages:
 - stage: Build
 
   jobs:
-  - job: Job1
+  - job: BuildJob1
     steps:
-    - script: echo job1
+    - script: echo BuildJob1
       displayName: 'Run a one-line script'
 
     - script: |
@@ -26,23 +21,24 @@ stages:
         echo more information
       displayName: 'Run a multi-line script'
 
-  - job: Job2
-    dependsOn: job1
+  - job: BuildJob2
+    dependsOn: BuildJob1
     steps:
-    - script: echo job2
+    - script: echo BuildJob2
       displayName: 'Run a one-line script'
 
-  - job: Job3
-    dependsOn: job2
+  - job: BuildJob3
+    dependsOn: BuildJob2
     steps:
-    - script: echo job2
+    - script: echo BuildJob3
       displayName: 'Run a one-line script'
 
 - stage: DevDeploy
+  dependsOn: Build
   jobs:
-  - job: Job4
+  - job: DevJob1
     steps:
-    - script: echo job4
+    - script: echo DevJob1
       displayName: 'Run a one-line script'
 
     - script: |
@@ -51,23 +47,50 @@ stages:
         echo more information
       displayName: 'Run a multi-line script'
 
-  - job: Job5
-    dependsOn: job4
+  - job: DevJob2
+    dependsOn: DevJob1
     steps:
-    - script: echo job5
+    - script: echo DevJob2
       displayName: 'Run a one-line script'
 
-  - job: Job6
-    dependsOn: job5
+  - job: DevJob3
+    dependsOn: DevJob2
     steps:
-    - script: echo job6
+    - script: echo DevJob3
+      displayName: 'Run a one-line script'
+
+- stage: QADeploy
+  dependsOn: DevDeploy
+  jobs:
+  - job: QAJob1
+    steps:
+    - script: echo QAJob1
+      displayName: 'Run a one-line script'
+
+    - script: |
+        echo Add other tasks to build, test, and deploy your project.
+        echo See https://aka.ms/yaml
+        echo more information
+      displayName: 'Run a multi-line script'
+
+  - job: QAJob2
+    dependsOn: QAJob1
+    steps:
+    - script: echo QAJob2
+      displayName: 'Run a one-line script'
+
+  - job: QAJob3
+    dependsOn: QAJob2
+    steps:
+    - script: echo QAJob3
       displayName: 'Run a one-line script'
 
 - stage: ProdDeploy
+  dependsOn: QADeploy
   jobs:
-  - job: Job7
+  - job: ProdJob1
     steps:
-    - script: echo job7
+    - script: echo ProdJob1
       displayName: 'Run a one-line script'
 
     - script: |
@@ -76,14 +99,14 @@ stages:
         echo more information
       displayName: 'Run a multi-line script'
 
-  - job: Job8
-    dependsOn: job7
+  - job: ProdJob2
+    dependsOn: ProdJob1
     steps:
-    - script: echo job8
+    - script: echo ProdJob2
       displayName: 'Run a one-line script'
 
-  - job: Job9
-    dependsOn: job8
+  - job: ProdJob3
+    dependsOn: ProdJob2
     steps:
-    - script: echo job9
+    - script: echo ProdJob3
       displayName: 'Run a one-line script'
