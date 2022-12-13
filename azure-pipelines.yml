@@ -11,25 +11,79 @@ pool:
 
 # Pipelines > Stages > Jobs > Tasks(Steps)
 
-jobs:
-- job: Job1
-  steps:
-  - script: echo job1
-    displayName: 'Run a one-line script'
+stages:
+- stage: Build
 
-  - script: |
-      echo Add other tasks to build, test, and deploy your project.
-      echo See https://aka.ms/yaml
-      echo more information
-    displayName: 'Run a multi-line script'
+  jobs:
+  - job: Job1
+    steps:
+    - script: echo job1
+      displayName: 'Run a one-line script'
 
-- job: Job2
-  dependsOn: job1
-  steps:
-  - script: echo job2
-    displayName: 'Run a one-line script'
-- job: Job3
-  dependsOn: job2
-  steps:
-  - script: echo job2
-    displayName: 'Run a one-line script'
+    - script: |
+        echo Add other tasks to build, test, and deploy your project.
+        echo See https://aka.ms/yaml
+        echo more information
+      displayName: 'Run a multi-line script'
+
+  - job: Job2
+    dependsOn: job1
+    steps:
+    - script: echo job2
+      displayName: 'Run a one-line script'
+
+  - job: Job3
+    dependsOn: job2
+    steps:
+    - script: echo job2
+      displayName: 'Run a one-line script'
+
+- stage: DevDeploy
+  jobs:
+  - job: Job4
+    steps:
+    - script: echo job4
+      displayName: 'Run a one-line script'
+
+    - script: |
+        echo Add other tasks to build, test, and deploy your project.
+        echo See https://aka.ms/yaml
+        echo more information
+      displayName: 'Run a multi-line script'
+
+  - job: Job5
+    dependsOn: job4
+    steps:
+    - script: echo job5
+      displayName: 'Run a one-line script'
+
+  - job: Job6
+    dependsOn: job5
+    steps:
+    - script: echo job6
+      displayName: 'Run a one-line script'
+
+- stage: ProdDeploy
+  jobs:
+  - job: Job7
+    steps:
+    - script: echo job7
+      displayName: 'Run a one-line script'
+
+    - script: |
+        echo Add other tasks to build, test, and deploy your project.
+        echo See https://aka.ms/yaml
+        echo more information
+      displayName: 'Run a multi-line script'
+
+  - job: Job8
+    dependsOn: job7
+    steps:
+    - script: echo job8
+      displayName: 'Run a one-line script'
+
+  - job: Job9
+    dependsOn: job8
+    steps:
+    - script: echo job9
+      displayName: 'Run a one-line script'
