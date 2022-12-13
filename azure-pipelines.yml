@@ -45,5 +45,5 @@ stages:
   jobs:
   - job: ProdJob1
     steps:
-    - bash: ProdJob 1
+    - bash: echo Prod Job 1
     - bash: echo $(environment) Deploy Job 1
